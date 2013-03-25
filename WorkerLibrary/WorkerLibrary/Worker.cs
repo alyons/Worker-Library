@@ -69,7 +69,7 @@ namespace WorkerLibrary
         {
             if (PropertyChanged != null) PropertyChanged(this, new PropertyChangedEventArgs(name));
         }
-        protected void OnWorkDone()
+        protected virtual void OnWorkDone()
         {
             if (WorkDone != null) WorkDone(this, new WorkerEventArgs(Status, Errors));
         }
@@ -98,7 +98,7 @@ namespace WorkerLibrary
 
             return id;
         }
-        protected void FreeWorkerID()
+        public void FreeWorkerID()
         {
             lock (activeIDs)
             {

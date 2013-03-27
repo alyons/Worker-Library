@@ -1,4 +1,20 @@
-﻿using System;
+﻿///The Worker Library gives a set of classes to do threaded work.
+///Copyright (C) 2013  Alexander Lyons
+
+///This program is free software: you can redistribute it and/or modify
+///it under the terms of the GNU General Public License as published by
+///the Free Software Foundation, either version 3 of the License, or
+///any later version.
+
+///This program is distributed in the hope that it will be useful,
+///but WITHOUT ANY WARRANTY; without even the implied warranty of
+///MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+///GNU General Public License for more details.
+
+///You should have received a copy of the GNU General Public License
+///along with this program.  If not, see <http://www.gnu.org/licenses/>
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,6 +34,12 @@ namespace WorkerLibraryTestApp
 
         static void Main(string[] args)
         {
+            Console.WriteLine("WorkerLibrary  Copyright (C) 2013  Alexander Lyons\nTHERE IS NO WARRANTY FOR THE PROGRAM, TO THE EXTENT PERMITTED BY APPLICABLE LAW. EXCEPT WHEN OTHERWISE STATED IN WRITING THE COPYRIGHT HOLDERS AND/OR OTHER PARTIES PROVIDE THE PROGRAM “AS IS” WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE. THE ENTIRE RISK AS TO THE QUALITY AND PERFORMANCE OF THE PROGRAM IS WITH YOU. SHOULD THE PROGRAM PROVE DEFECTIVE, YOU ASSUME THE COST OF ALL NECESSARY SERVICING, REPAIR OR CORRECTION.\nThis is free software, and you are welcome to redistribute it under certain conditions; please refer to the GPL included with this project.");
+            Console.Write("Press enter to continue...");
+
+            Console.Read();
+            Console.Clear();
+
             Console.WriteLine("Testing Pausable Workers");
 
             try
@@ -33,43 +55,21 @@ namespace WorkerLibraryTestApp
                     workerThreads.Add(new Thread(new ThreadStart(workers.Last().ExecuteTask)));
                     workerThreads.Last().Start();
                 }
-
-                //String input = "";
-
-                /*while (!(input.ToLower().Equals("quit") || input.ToLower().Equals("exit") || workers.All(w => w.Finished)))
-                {
-                    Console.SetCursorPosition(0, Console.CursorTop);
-                    switch (spinNum)
-                    {
-                        case 0:
-                            Console.Write("|");
-                            break;
-                        case 1:
-                            Console.Write("/");
-                            break;
-                        case 2:
-                            Console.Write("-");
-                            break;
-                        case 3:
-                            Console.Write("\\");
-                            break;
-                    }
-                    Console.WriteLine();
-                    input = Console.ReadLine();
-                }*/
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.ToString());
             }
-
-            //Console.WriteLine("Done!");
-            Console.Read();
         }
 
         static void Program_WorkDone(object sender, WorkerEventArgs e)
         {
             Console.WriteLine((sender as Worker).WorkerType() + " - Found " + (sender as TestWorker).Maximum + "! " + (sender as TestWorker).Count);
+            if(workers.All(w => w.Finished))
+            {
+                Console.Write("Done!");
+                Console.Read();
+            }
         }
 
         static void PauseWorkers()

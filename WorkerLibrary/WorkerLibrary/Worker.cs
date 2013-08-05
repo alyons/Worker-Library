@@ -87,7 +87,11 @@ namespace WorkerLibrary
         }
         protected virtual void OnWorkDone()
         {
-            if (WorkDone != null) WorkDone(this, new WorkerEventArgs(Status, Errors));
+            OnWorkDone(new WorkerEventArgs(Status, Errors));
+        }
+        protected void OnWorkDone(WorkerEventArgs args)
+        {
+            if (WorkDone != null) WorkDone(this, args);
         }
         #endregion
 
